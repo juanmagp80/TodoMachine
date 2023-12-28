@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body {
+  background-image: url("../public/background.jpg");
+  font-family: 'poppins', sans-serif;
+}
+@font-face {
+  font-family: 'poppins';
+  src: url('../src/fonts/Poppins-Medium.ttf') format('truetype');
+}
