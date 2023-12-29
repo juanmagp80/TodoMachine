@@ -1,16 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-function AddButton({ setTasks }) {
+function AddButton({ tasks, setTasks }) {
   const [newTask, setNewTask] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [addingTasks, setAddingTasks] = useState([]);
 
   const addTask = () => {
     if (newTask.trim() !== "") {
-      setTasks((prevTasks) => [...prevTasks, newTask]);
+      setAddingTasks([...addingTasks, { name: newTask, completed: false }]);
+
       setNewTask("");
       setShowModal(false);
     }
   };
+  useEffect(() => {
+    if (addingTasks.length > 0) {
+      setTimeout(() => {
+        setTasks((prevTasks) => [...prevTasks, ...addingTasks]);
+        setAddingTasks([]);
+      }, 500);
+    }
+  }, [addingTasks]);
 
   const openModal = () => {
     setShowModal(true);
