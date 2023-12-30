@@ -42,6 +42,9 @@ const Layout = () => {
   const handleSearchChange = (event) => {
     setSearchValue(event.target.value);
   };
+  const filteresdTasks = tasks.filter((task) =>
+    task.name.toLowerCase().includes(searchValue)
+  );
   const handleDelete = (index) => {
     setDeletingIndex(index);
     setTimeout(() => {
@@ -117,7 +120,7 @@ const Layout = () => {
               </div>
               <div className="mt-4 flex-1 w-full lg:w-auto md:w-1/4">
                 <ul>
-                  {tasks.map((task, index) => (
+                  {filteresdTasks.map((task, index) => (
                     <li
                       key={index}
                       className={`bg-gray-200  items-center w-full md:w-96 border border-solid bg-orenge-200 border-gray-300 focus:outline-2 shadow-4xl rounded-xl p-2 mb-2 ${
