@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
 
-function AddButton({ tasks, setTasks, inputValue, setInputValue }) {
+function AddButton({
+  tasks,
+  setTasks,
+  inputValue,
+  setInputValue,
+  hasTasks,
+  setHasTasks,
+}) {
   const [showModal, setShowModal] = useState(false);
   const [addingTasks, setAddingTasks] = useState([]);
 
@@ -8,7 +15,7 @@ function AddButton({ tasks, setTasks, inputValue, setInputValue }) {
     if (inputValue.trim() !== "") {
       setTasks([...tasks, { name: inputValue, completed: false }]);
       setInputValue("");
-
+      setHasTasks(true);
       setShowModal(false);
     }
   };
