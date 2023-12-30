@@ -68,7 +68,7 @@ const Layout = () => {
         <div className="container mx-auto flex flex-col md:flex-row md:space-x-4">
           <div className="flex-1 h-96">
             {/* Card en el lado izquierdo */}
-            <div className="bg-pink-200 bg-logo bg-right-bottom bg-50% bg-no-repeat rounded-xl p-4 shadow-4xl mt-10 md:mt-40 w-full md:w-2/3">
+            <div className="bg-pink-200 bg-right-bottom bg-50% bg-no-repeat rounded-xl p-4 shadow-4xl mt-10 md:mt-40 w-full md:w-2/3">
               <h1 className="text-2xl font-semibold mb-4 text-violet-800">
                 Crea una nueva tarea
               </h1>
@@ -115,12 +115,12 @@ const Layout = () => {
                   <FontAwesomeIcon icon={faSearch} className="text-gray-400" />
                 </span>
               </div>
-              <div className="mt-4 flex-1 overflow-auto">
+              <div className="mt-4 flex-1 w-full lg:w-auto md:w-1/4">
                 <ul>
                   {tasks.map((task, index) => (
                     <li
                       key={index}
-                      className={`bg-gray-200 mx-auto items-center w-full md:w-96 border border-solid bg-orenge-200 border-gray-300 focus:outline-2 shadow-4xl rounded-xl p-2 mb-2 ${
+                      className={`bg-gray-200  items-center w-full md:w-96 border border-solid bg-orenge-200 border-gray-300 focus:outline-2 shadow-4xl rounded-xl p-2 mb-2 ${
                         index === deletingIndex ? "animate-fade-out" : ""
                       } ${index === addingIndex ? "animate-fade-in" : ""}`}
                     >
@@ -141,8 +141,9 @@ const Layout = () => {
                       </span>
 
                       <button
+                        type="button"
                         onClick={() => handleDelete(index)}
-                        className="float-right"
+                        className="float-right bg-indigo-500 hover:bg-red-700 text-white font-bold mb-2py-1 px-4 rounded-full"
                       >
                         X
                       </button>

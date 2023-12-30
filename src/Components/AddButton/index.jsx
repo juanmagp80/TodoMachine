@@ -31,7 +31,7 @@ function AddButton({ tasks, setTasks, inputValue, setInputValue }) {
   };
 
   return (
-    <div className="fixed bottom-40 left-90 mb-4 mr-4">
+    <div className="flex justify-center items-center mt-4">
       {/* Botón para abrir el modal */}
       <button
         className="inline-block text-white font-bold py-2 px-4 rounded-full bg-gradient-to-r from-pink-500 to-purple-800 border border-transparent transform hover:scale-110 hover:border-white duration-3000 ease-in-out w-16 h-16 bg-violet-800 hover:bg-gray-400 focus:outline-none transition duration-300  hover:rotate-180"
