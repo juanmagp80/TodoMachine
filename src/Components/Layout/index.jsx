@@ -96,10 +96,10 @@ const Layout = () => {
             </div>
           </div>
           <div className="flex-1 mt-4 md:mt-10">
-            <h1 className="text-6xl font-bold text-center mt-28 font-poppins text-violet-800">
+            <h1 className="text-6xl font-bold text-center mt-28 font-poppins text-orange-200">
               Todo Machine
             </h1>
-            <h2 className="text-2xl mt-4 text-center text-violet-700">
+            <h2 className="text-2xl mt-4 text-center text-orange-300">
               Has completado {completedTasks} de {totalTasks} tareas
             </h2>
             <div className="flex flex-col items-center mt-4">
