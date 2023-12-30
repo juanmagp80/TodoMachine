@@ -43,7 +43,7 @@ const Layout = () => {
     setSearchValue(event.target.value);
   };
   const filteresdTasks = tasks.filter((task) =>
-    task.name.toLowerCase().includes(searchValue)
+    task.name.toLowerCase().includes(searchValue.toLocaleLowerCase())
   );
   const handleDelete = (index) => {
     setDeletingIndex(index);
