@@ -11,12 +11,18 @@ const Layout = () => {
   const [searchValue, setSearchValue] = useState("");
   const [addingIndex, setAddingIndex] = useState(null);
   const [inputValue, setInputValue] = useState("");
+  const [hasTasks, setHasTasks] = useState(false);
+
+  const filteredTasks = tasks.filter((task) =>
+    task.name.toLowerCase().includes(searchValue.toLowerCase())
+  );
 
   const addTask = () => {
     console.log("addTask");
     console.log("inputValue", inputValue);
     if (inputValue.trim() !== "") {
       setTasks([...tasks, { name: inputValue, completed: false }]);
+      setHasTasks(true);
       setAddingIndex(tasks.length);
       setTimeout(() => {
         setAddingIndex(null);
@@ -43,9 +49,13 @@ const Layout = () => {
     setSearchValue(event.target.value);
   };
   const handleDelete = (index) => {
+    const newTasks = tasks.filter((task, i) => i !== index);
+    setTasks(newTasks);
+    if (newTasks.length === 0) {
+      setHasTasks(false);
+    }
     setDeletingIndex(index);
     setTimeout(() => {
-      setTasks(tasks.filter((task, i) => i !== index));
       setDeletingIndex(null);
     }, 1000);
   };
@@ -68,7 +78,7 @@ const Layout = () => {
         <div className="container mx-auto flex flex-col md:flex-row md:space-x-4">
           <div className="flex-1 h-96">
             {/* Card en el lado izquierdo */}
-            <div className="bg-pink-200 bg-logo bg-right-bottom bg-50% bg-no-repeat rounded-xl p-4 shadow-4xl mt-10 md:mt-40 w-full md:w-2/3">
+            <div className="bg-pink-200  bg-right-bottom bg-50% bg-no-repeat rounded-xl p-4 shadow-4xl mt-10 md:mt-40 w-full md:w-2/3">
               <h1 className="text-2xl font-semibold mb-4 text-violet-800">
                 Crea una nueva tarea
               </h1>
@@ -81,7 +91,7 @@ const Layout = () => {
                   type="text"
                   value={inputValue}
                   onChange={handleInputChange}
-                  placeholder="Hacer la compra"
+                  placeholder="Ej...Hacer la compra"
                   className="py-4 px-4 mx-auto items-center pr-10 w-full border border-solid bg-white border-gray-300 focus:outline-2 shadow-3xl rounded-xl"
                 />
                 <div className="flex justify-between mt-8">
@@ -96,10 +106,10 @@ const Layout = () => {
             </div>
           </div>
           <div className="flex-1 mt-4 md:mt-10">
-            <h1 className="text-6xl font-bold text-center mt-28 font-poppins text-violet-800">
-              Todo Machine
+            <h1 className="text-6xl font-bold text-center mt-28 font-poppins text-indigo-800">
+              TO-DO Machine
             </h1>
-            <h2 className="text-2xl mt-4 text-center text-violet-700">
+            <h2 className="text-2xl mt-4 text-center text-indigo-800">
               Has completado {completedTasks} de {totalTasks} tareas
             </h2>
             <div className="flex flex-col items-center mt-4">
@@ -117,7 +127,7 @@ const Layout = () => {
               </div>
               <div className="mt-4 flex-1 overflow-auto">
                 <ul>
-                  {tasks.map((task, index) => (
+                  {filteredTasks.map((task, index) => (
                     <li
                       key={index}
                       className={`bg-gray-200 mx-auto items-center w-full md:w-96 border border-solid bg-orenge-200 border-gray-300 focus:outline-2 shadow-4xl rounded-xl p-2 mb-2 ${
@@ -157,9 +167,11 @@ const Layout = () => {
                 setInputValue={setInputValue}
                 tasks={tasks}
                 setTasks={setTasks}
+                hasTasks={hasTasks}
+                setHasTasks={setHasTasks}
               />
               <h2 className="text-1xl mt-6 text-center text-violet-700">
-                Crea tu primera tarea!
+                {!hasTasks ? "Crea tu primera tarea!" : "Agrega otra tarea!"}
               </h2>
             </div>
           </div>
