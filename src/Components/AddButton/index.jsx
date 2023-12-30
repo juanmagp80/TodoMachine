@@ -1,24 +1,24 @@
 import React, { useState, useEffect } from "react";
 
-function AddButton({ tasks, setTasks }) {
-  const [newTask, setNewTask] = useState("");
+function AddButton({ tasks, setTasks, inputValue, setInputValue }) {
   const [showModal, setShowModal] = useState(false);
   const [addingTasks, setAddingTasks] = useState([]);
 
   const addTask = () => {
-    if (newTask.trim() !== "") {
-      setAddingTasks([...addingTasks, { name: newTask, completed: false }]);
+    if (inputValue.trim() !== "") {
+      setTasks([...tasks, { name: inputValue, completed: false }]);
+      setInputValue("");
 
-      setNewTask("");
       setShowModal(false);
     }
   };
+
   useEffect(() => {
     if (addingTasks.length > 0) {
       setTimeout(() => {
         setTasks((prevTasks) => [...prevTasks, ...addingTasks]);
         setAddingTasks([]);
-      }, 500);
+      }, 5000);
     }
   }, [addingTasks]);
 
@@ -31,7 +31,7 @@ function AddButton({ tasks, setTasks }) {
   };
 
   return (
-    <div className="fixed bottom-40 right-40 mb-4 mr-4">
+    <div className="fixed bottom-40 left-90 mb-4 mr-4">
       {/* Botón para abrir el modal */}
       <button
         className="inline-block text-white font-bold py-2 px-4 rounded-full bg-gradient-to-r from-pink-500 to-purple-800 border border-transparent transform hover:scale-110 hover:border-white duration-3000 ease-in-out w-16 h-16 bg-violet-800 hover:bg-gray-400 focus:outline-none transition duration-300  hover:rotate-180"
@@ -50,18 +50,18 @@ function AddButton({ tasks, setTasks }) {
             <h1 className="text-2xl font-bold mb-2">Escriba la tarea</h1>
             <input
               type="text"
-              value={newTask}
-              onChange={(e) => setNewTask(e.target.value)}
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
               className="py-2 px-4 mb-2 mr-2 border border-solid border-gray-300 rounded-md focus:outline-2 shadow-md"
             />
             <button
-              className="inline-block mr-2 text-white font-bold py-2 px-4 rounded-full bg-gradient-to-r from-pink-500 to-purple-800 border border-transparent transform hover:scale-110 hover:border-white transition-transform duration-3000 ease-in-outon"
+              className="inline-block mr-2 text-white font-bold py-2 px-4 rounded-full bg-gradient-to-r from-pink-500 to-purple-800 border border-transparent transform hover:scale-110 hover:border-white transition-transform duration-3000 ease-in-out"
               onClick={addTask}
             >
               Confirmar
             </button>
             <button
-              className="inline-block text-white font-bold py-2 px-4 rounded-full bg-gradient-to-r from-pink-500 to-purple-800 border border-transparent transform hover:scale-110 hover:border-white transition-transform duration-3000 ease-in-outon"
+              className="inline-block text-white font-bold py-2 px-4 rounded-full bg-gradient-to-r from-pink-500 to-purple-800 border border-transparent transform hover:scale-110 hover:border-white transition-transform duration-3000 ease-in-out"
               onClick={closeModal}
             >
               Cancelar

@@ -8,25 +8,28 @@ import AddButton from "../AddButton";
 
 const Layout = () => {
   const [tasks, setTasks] = useState([]);
-  const [newTask, setNewTask] = useState("");
+  const [searchValue, setSearchValue] = useState("");
   const [addingIndex, setAddingIndex] = useState(null);
+  const [inputValue, setInputValue] = useState("");
 
   const addTask = () => {
-    if (newTask.trim() !== "") {
-      setTasks([...tasks, { name: newTask, completed: false }]);
+    console.log("addTask");
+    console.log("inputValue", inputValue);
+    if (inputValue.trim() !== "") {
+      setTasks([...tasks, { name: inputValue, completed: false }]);
       setAddingIndex(tasks.length);
       setTimeout(() => {
         setAddingIndex(null);
       }, 3000);
-
-      console.log(tasks.name);
-
-      setNewTask("");
+      setInputValue("");
     }
   };
+
   const handleInputChange = (event) => {
+    console.log("handleInputChange");
     // Añade este manejador para actualizar newTask
-    setNewTask(event.target.value);
+    setInputValue(event.target.value);
+    console.log("event.target.value", event.target.value);
   };
 
   const handleCheckboxChange = (index) => {
@@ -36,7 +39,9 @@ const Layout = () => {
       )
     );
   };
-
+  const handleSearchChange = (event) => {
+    setSearchValue(event.target.value);
+  };
   const handleDelete = (index) => {
     setDeletingIndex(index);
     setTimeout(() => {
@@ -74,11 +79,16 @@ const Layout = () => {
               <div className="relative w-full mt-4">
                 <input
                   type="text"
+                  value={inputValue}
+                  onChange={handleInputChange}
                   placeholder="Hacer la compra"
                   className="py-4 px-4 mx-auto items-center pr-10 w-full border border-solid bg-white border-gray-300 focus:outline-2 shadow-3xl rounded-xl"
                 />
                 <div className="flex justify-between mt-8">
-                  <button className="inline-block w-full text-white font-bold py-2 px-4 rounded-full bg-gradient-to-r from-pink-500 to-purple-800 border border-transparent transform hover:scale-105 hover:border-white transition-transform duration-3000 ease-in-out">
+                  <button
+                    onClick={addTask}
+                    className="inline-block w-full text-white font-bold py-2 px-4 rounded-full bg-gradient-to-r from-pink-500 to-purple-800 border border-transparent transform hover:scale-105 hover:border-white transition-transform duration-3000 ease-in-out"
+                  >
                     AÑADIR
                   </button>
                 </div>
@@ -97,8 +107,8 @@ const Layout = () => {
                 <input
                   type="text"
                   placeholder="Buscar..."
-                  value={newTask}
-                  onChange={handleInputChange}
+                  value={searchValue}
+                  onChange={handleSearchChange}
                   className="py-2 px-4 mx-auto items-center pr-10 w-full border border-solid bg-orange-200 border-gray-300 focus:outline-2 shadow-4xl rounded-xl"
                 />
                 <span className="absolute inset-y-0 right-0 flex items-center px-3">
@@ -142,7 +152,12 @@ const Layout = () => {
               </div>
             </div>
             <div className="flex-1">
-              <AddButton tasks={tasks} setTasks={setTasks} />
+              <AddButton
+                inputValue={inputValue}
+                setInputValue={setInputValue}
+                tasks={tasks}
+                setTasks={setTasks}
+              />
               <h2 className="text-1xl mt-6 text-center text-violet-700">
                 Crea tu primera tarea!
               </h2>
