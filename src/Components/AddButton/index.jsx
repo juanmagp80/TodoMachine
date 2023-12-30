@@ -14,8 +14,11 @@ function AddButton({
   const addTask = () => {
     if (inputValue.trim() !== "") {
       setTasks([...tasks, { name: inputValue, completed: false }]);
-      setInputValue("");
+      closeModal();
       setHasTasks(true);
+
+      setAddingTasks([...addingTasks, { name: inputValue, completed: false }]);
+      setInputValue("");
       setShowModal(false);
     }
   };
@@ -25,6 +28,7 @@ function AddButton({
       setTimeout(() => {
         setTasks((prevTasks) => [...prevTasks, ...addingTasks]);
         setAddingTasks([]);
+        setShowModal(false);
       }, 5000);
     }
   }, [addingTasks]);
